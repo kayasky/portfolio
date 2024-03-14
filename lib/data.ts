@@ -1,10 +1,9 @@
+import pic1 from "@/public/pic1.png";
+import pic2 from "@/public/pic2.png";
+import pic3 from "@/public/pic3.png";
 import React from "react";
 import { CgWorkAlt } from "react-icons/cg";
 import { FaReact } from "react-icons/fa";
-import { LuGraduationCap } from "react-icons/lu";
-import corpcommentImg from "@/public/corpcomment.png";
-import rmtdevImg from "@/public/rmtdev.png";
-import wordanalyticsImg from "@/public/wordanalytics.png";
 
 export const links = [
   {
@@ -45,7 +44,7 @@ export const experiencesData = [
     title: "Position 2",
     location: "Toronto, ON",
     description: "Position 2 description. This is a long description to test the layout.",
-    icon: React.createElement(CgWorkAlt),
+    icon: React.createElement(FaReact),
     date: "2019 - 2021",
   },
   {
@@ -63,7 +62,21 @@ export const projectsData = [
     description:
       "Project 1 description. This is a long description to test the layout.",
     tags: ["Angular", "Typescript", "SCSS", "Node"],
-    imageUrl: corpcommentImg,
+    imageUrl: pic1,
+  },
+  {
+    title: "Project 2",
+    description:
+      "Project 2 description. This is a long description to test the layout.",
+    tags: ["React", "Typescript", "Tailwind", "Node"],
+    imageUrl: pic2,
+  },
+  {
+    title: "Project 3",
+    description:
+      "Project 3 description. This is a long description to test the layout.",
+    tags: ["Next.js", "Typescript", "Tailwind", "Node"],
+    imageUrl: pic3,
   },
 ] as const;
 
