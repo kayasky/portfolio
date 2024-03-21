@@ -59,32 +59,50 @@ export default function Intro() {
         .
       </motion.p>
 
-      <div className="flex gap-2">
+      <motion.div
+        initial={{ opacity: 0, y: 100 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.1 }}
+        className="flex flex-col sm:flex-row items-center justify-center gap-2 px-4 text-lg font-medium"
+      >
         <Link
           href="#contact"
-          className="bg-gray-900 text-white px-7 py-3 flex items-center gap-2 rounded-full"
+          className="group bg-gray-900 text-white px-7 py-3 flex items-center gap-2 rounded-full
+          outline-none focus:scale-110 hover:scale-110 hover:bg-gray-950 active:scale-105
+          transition"
         >
-          Contact me here <BsArrowRight />
+          Contact me here{" "}
+          <BsArrowRight className="opacity-80 group-hover:translate-x-1 transition" />
         </Link>
         <a
-          href=""
-          className="bg-white px-7 py-3 flex items-center gap-2 rounded-full"
+          href="/Kaya_Jhuti_Software_Developer.pdf"
+          download
+          className="group bg-white px-7 py-3 flex items-center gap-2 rounded-full
+          outline-none focus:scale-110 hover:scale-110 active:scale-105
+          transition border border-black/10"
         >
-          Download Resume <HiDownload />
+          Download Resume{" "}
+          <HiDownload className="opacity-70 group-hover:translate-y-1 transition" />
         </a>
         <a
-          href=""
-          className="bg-white text-gray-700 p-4 flex items-center gap-2 rounded-full"
+          href="https://www.linkedin.com/in/itskaya/"
+          target="_blank"
+          className="bg-white text-gray-700 p-4 flex items-center gap-2 rounded-full
+          outline-none focus:scale-[1.15] hover:scale-[1.15] active:scale-[1.1] hover:text-gray-950
+          transition border border-black/10"
         >
           <BsLinkedin />
         </a>
         <a
-          href=""
-          className="bg-white text-gray-700 p-4 flex items-center gap-2 rounded-full text-[1.2rem]"
+          href="https://github.com/kayasky"
+          target="_blank"
+          className="bg-white text-gray-700 p-4 flex items-center gap-2 rounded-full text-[1.2rem]
+          outline-none focus:scale-[1.15] hover:scale-[1.15] active:scale-[1.1] hover:text-gray-950
+          transition border border-black/10"
         >
           <BsGithub />
         </a>
-      </div>
+      </motion.div>
     </section>
   );
 }
