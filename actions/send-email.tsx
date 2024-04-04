@@ -14,13 +14,35 @@ export const sendEmail = async (formData: FormData) => {
     };
   }
 
-  await resend.emails.send({
-    from: "hi@itskaya.ca",
-    to: "itskayaj@gmail.com",
-    subject: "New message from your website!",
-    reply_to: senderEmail,
-    text: message
-  });
+  try {
+    await resend.emails.send({
+      from: "itskaya.ca contact <hi@itskaya.ca>",
+      to: "itskayaj@gmail.com",
+      subject: "New message from your website!",
+      reply_to: senderEmail,
+      text: message
+    });
+  } catch (error) {
+    return {
+      error: getErrorMessage(error)
+    };
+  }
+};
+
+const getErrorMessage = (error: unknown): string => {
+  let message: string;
+
+  if (error instanceof Error) {
+    message = error.message;
+  } else if (error && typeof error === "object" && "message" in error) {
+    message = String(error.message);
+  } else if (typeof error === "string") {
+    message = error;
+  } else {
+    message = "Something went wrong";
+  }
+
+  return message;
 };
 
 const isFormValid = (message: string, senderEmail: string) => {
