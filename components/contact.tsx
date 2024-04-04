@@ -6,7 +6,6 @@ import { FaPaperPlane } from "react-icons/fa";
 import SectionHeading from "./section-heading";
 
 export default function Contact() {
- 
   return (
     <motion.section
       id="contact"
@@ -16,7 +15,7 @@ export default function Contact() {
       viewport={{ once: true }}
     >
       <SectionHeading>Contact me</SectionHeading>
-      <p className="text-grey-700">Please contact me using the form below :)</p>
+      <p className="text-grey-700">Get in touch :)</p>
       <form
         className="mt-10 flex flex-col"
         action={async (formData) => {
@@ -29,14 +28,14 @@ export default function Contact() {
           placeholder="Your email"
           required
           name="senderEmail"
-          maxLength={500}
+          maxLength={100}
         />
         <textarea
           className="h-52 my-3 rounded-lg borderBlack p-4"
           placeholder="Your message"
           required
           name="message"
-          maxLength={500}
+          maxLength={5000}
         ></textarea>
         <button
           type="submit"
