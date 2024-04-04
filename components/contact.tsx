@@ -1,10 +1,12 @@
 "use client";
 
+import { sendEmail } from "@/actions/send-email";
 import { motion } from "framer-motion";
 import { FaPaperPlane } from "react-icons/fa";
 import SectionHeading from "./section-heading";
 
 export default function Contact() {
+ 
   return (
     <motion.section
       id="contact"
@@ -18,8 +20,7 @@ export default function Contact() {
       <form
         className="mt-10 flex flex-col"
         action={async (formData) => {
-          console.log(formData.get("senderEmail"));
-          console.log(formData.get("message"));
+          await sendEmail(formData);
         }}
       >
         <input
