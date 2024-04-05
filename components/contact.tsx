@@ -2,10 +2,21 @@
 
 import { sendEmail } from "@/actions/send-email";
 import { motion } from "framer-motion";
-import { FaPaperPlane } from "react-icons/fa";
+import { useRef } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
+import toast from "react-hot-toast";
+import FormFields from "./form-fields";
 import SectionHeading from "./section-heading";
+import SubmitButton from "./submit-button";
 
 export default function Contact() {
+  const recaptcha = useRef<ReCAPTCHA>(null);
+
+  const resetForm = () => {
+    const form = document.querySelector("form") as HTMLFormElement;
+    form.reset();
+  };
+
   return (
     <motion.section
       id="contact"
@@ -19,36 +30,32 @@ export default function Contact() {
       <form
         className="mt-10 flex flex-col"
         action={async (formData) => {
-          await sendEmail(formData);
+          const captchaValue = recaptcha?.current?.getValue();
+
+          if (!captchaValue) {
+            toast.error("Please verify the reCAPTCHA!");
+            return;
+          }
+
+          const { error } = await sendEmail(formData);
+
+          if (error) {
+            toast.error(error);
+            return;
+          }
+
+          resetForm();
+
+          toast.success("Message sent!");
         }}
       >
-        <input
-          className="h-14 rounded-lg borderBlack p-4"
-          type="email"
-          placeholder="Your email"
-          required
-          name="senderEmail"
-          maxLength={100}
+        <FormFields />
+        <ReCAPTCHA
+          ref={recaptcha}
+          sitekey="6LddHLEpAAAAAB9UFo4DLY3i0sU7t6cyF646_VFs"
+          className="mb-3"
         />
-        <textarea
-          className="h-52 my-3 rounded-lg borderBlack p-4"
-          placeholder="Your message"
-          required
-          name="message"
-          maxLength={5000}
-        ></textarea>
-        <button
-          type="submit"
-          className="group flex items-center gap-2 justify-center h-[3rem] w-[8rem] bg-gray-900 text-white rounded-full outline-none transition-all
-          focus:scale-110 hover:scale-110 active:scale-105 hover:bg-gray-950"
-        >
-          Send
-          <FaPaperPlane
-            className="text-xs opacity-70 transition-all
-          group-hover:translate-x-1
-          group-hover:-translate-y-1"
-          />
-        </button>
+        <SubmitButton />
       </form>
     </motion.section>
   );
