@@ -2,9 +2,10 @@
 
 import { sendEmail } from "@/actions/send-email";
 import { motion } from "framer-motion";
+import toast from "react-hot-toast";
+import FormFields from "./form-fields";
 import SectionHeading from "./section-heading";
 import SubmitButton from "./submit-button";
-import toast from "react-hot-toast";
 
 export default function Contact() {
   return (
@@ -30,21 +31,7 @@ export default function Contact() {
           toast.success("Message sent!");
         }}
       >
-        <input
-          className="h-14 rounded-lg borderBlack p-4"
-          type="email"
-          placeholder="Your email"
-          required
-          name="senderEmail"
-          maxLength={100}
-        />
-        <textarea
-          className="h-52 my-3 rounded-lg borderBlack p-4"
-          placeholder="Your message"
-          required
-          name="message"
-          maxLength={5000}
-        ></textarea>
+        <FormFields />
         <SubmitButton />
       </form>
     </motion.section>
