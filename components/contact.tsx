@@ -4,6 +4,7 @@ import { sendEmail } from "@/actions/send-email";
 import { motion } from "framer-motion";
 import SectionHeading from "./section-heading";
 import SubmitButton from "./submit-button";
+import toast from "react-hot-toast";
 
 export default function Contact() {
   return (
@@ -22,11 +23,11 @@ export default function Contact() {
           const { data, error } = await sendEmail(formData);
 
           if (error) {
-            alert(error);
+            toast.error(error);
             return;
           }
 
-          alert("Message sent!");
+          toast.success("Message sent!");
         }}
       >
         <input
