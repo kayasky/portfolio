@@ -1,4 +1,4 @@
-Visit this site on https://itskaya.ca!
+Visit this site on [https://itskaya.ca](https://www.itskaya.ca)!
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
