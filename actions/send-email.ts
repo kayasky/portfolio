@@ -16,8 +16,10 @@ export const sendEmail = async (formData: FormData) => {
     };
   }
 
+  let data;
+
   try {
-    await resend.emails.send({
+    data = await resend.emails.send({
       from: "itskaya.ca contact <hi@itskaya.ca>",
       to: "itskayaj@gmail.com",
       subject: "New message from your website!",
@@ -33,6 +35,8 @@ export const sendEmail = async (formData: FormData) => {
       error: getErrorMessage(error)
     };
   }
+
+  return { data };
 };
 
 const getErrorMessage = (error: unknown): string => {
