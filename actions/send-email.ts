@@ -1,6 +1,7 @@
 "use server";
 
 import ContactFormEmail from "@/email/contact-form-email";
+import axios from 'axios';
 import React from "react";
 import { Resend } from "resend";
 
@@ -9,6 +10,8 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export const sendEmail = async (formData: FormData) => {
   const message = formData.get("message") as string;
   const senderEmail = formData.get("senderEmail") as string;
+  const captchaValue = formData.get("g-recaptcha-response") as string;
+  const RECAPTCHA_SITE_SECRET = process.env.RECAPTCHA_SITE_SECRET;
 
   if (!isFormValid(message, senderEmail)) {
     return {
@@ -16,10 +19,21 @@ export const sendEmail = async (formData: FormData) => {
     };
   }
 
-  let data;
+  let response = {};
 
   try {
-    data = await resend.emails.send({
+
+    const { data } = await axios.post(
+      `https://www.google.com/recaptcha/api/siteverify?secret=${RECAPTCHA_SITE_SECRET}&response=${captchaValue}`,
+    );
+
+    if (!data.success) {
+      return {
+        error: "Recaptcha verification failed."
+      };
+    }
+
+    response = await resend.emails.send({
       from: "itskaya.ca contact <hi@itskaya.ca>",
       to: "itskayaj@gmail.com",
       subject: "New message from your website!",
@@ -36,7 +50,7 @@ export const sendEmail = async (formData: FormData) => {
     };
   }
 
-  return { data };
+  return { data: response };
 };
 
 const getErrorMessage = (error: unknown): string => {
